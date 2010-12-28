@@ -1,0 +1,72 @@
+/* SCREEN **************************************************/ 
+
+body {
+    padding: 20px;
+    background-color: #ececec;
+}
+
+/* Typography
+---------------------------------------------------------- */
+html, body {
+    font-family: 'Lucida Grande';
+}
+
+/* Header
+---------------------------------------------------------- */
+header {
+    margin-bottom: 20px;
+}
+header h1 {
+    font-family: Tahoma;
+    font-size: 36px;
+    font-weight: normal;
+    color: #5c6872;
+}
+
+/* Things
+---------------------------------------------------------- */
+section#things {
+    background-color: #fff;
+}
+section#things ul#items > li {
+    position: relative;
+    padding: .5em;
+    border-bottom: 1px dotted #ccc;
+}
+section#things ul#items > li:last-child {
+    border: 0;
+}
+section#things ul#items ul {
+    position: absolute;
+    top: 7px;
+    right: 0;
+    width: 125px;
+    text-align: center;
+/*    background: green;*/
+}
+section#things ul#items ul li {
+    display: inline;
+}
+section#things ul#items ul li a {
+    font-size: .75em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+section#things ul#items ul li.btn-edit a {
+    color: #357db8;
+}
+section#things ul#items ul li.btn-delete a {
+    color: red;
+}
+
+/* Toolbar */
+section#toolbar {
+    padding: .5em;
+    background-color: #357db8;
+}
+section#toolbar a {
+    font-size: .75em;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+}
