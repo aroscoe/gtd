@@ -1,0 +1,7 @@
+- add delete button to items
+- delete button should pop "Are you sure?" dialog
+- ability to in line edit items
+- Add Item button adds blank item to list
+- reorder list by dragging
+- display date
+- show/restore/empty deleted
