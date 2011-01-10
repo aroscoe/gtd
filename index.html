@@ -27,30 +27,44 @@
             <li><a href="">Add Item</a></li>
         </ul>
     </section>
-    <ul id="items">
+    <ul id="items"></ul>
+    <!-- <ul id="items">
         <li>
             <p>Foo</p>
             <ul>
-                <!-- <li class="btn-edit"><a href="">Edit</a></li> -->
+                <li class="btn-edit"><a href="">Edit</a></li>
                 <li class="btn-delete"><a href="">Delete</a></li>
             </ul>
         </li>
         <li>
             <p>Bar</p>
             <ul>
-                <!-- <li class="btn-edit"><a href="">Edit</a></li> -->
+                <li class="btn-edit"><a href="">Edit</a></li>
                 <li class="btn-delete"><a href="">Delete</a></li>
             </ul>
         </li>
         <li>
             <p>FooBar</p>
             <ul>
-                <!-- <li class="btn-edit"><a href="">Edit</a></li> -->
+                <li class="btn-edit"><a href="">Edit</a></li>
                 <li class="btn-delete"><a href="">Delete</a></li>
             </ul>
         </li>
-    </ul>
+    </ul> -->
 </section>
 
+<script>
+    function main() {
+        var itemData = [
+            {'content': 'Foo', 'date': '11/12/2010'},
+            {'content': 'Bar', 'date': '11/14/2010'},
+            {'content': 'FooBar', 'date': '11/19/2010'}
+        ];
+
+        var itemListElement = document.getElementById('items');
+        var items = gtd.createItems(itemData, itemListElement);
+    }
+    main();
+</script>
 </body>
 </html>
