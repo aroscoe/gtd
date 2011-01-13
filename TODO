@@ -1,7 +1,28 @@
-- add delete button to items
-- delete button should pop "Are you sure?" dialog
-- ability to in line edit items
-- Add Item button adds blank item to list
+0.5
+----
+- delete items
+--- delete button should pop "Are you sure?" dialog
+- add items
+--- adds blank item to list with input box
+- edit items
+--- editing should happen inline
+- display date last edited
+
+1.0
+----
+- create django app
+- create item model
+- REST interface
+--- add item
+--- delete item
+--- update/edit item
+
+1.5
+----
 - reorder list by dragging
-- display date
 - show/restore/empty deleted
+
+Future
+----
+- multiple lists
+- multiple users
