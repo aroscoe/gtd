@@ -26,8 +26,12 @@ gtd.Item.prototype.makeItemDom = function(){
     // Create DOM structure
     this.contentElement = goog.dom.createDom('p', null, this.content);
     
+    // Build menu
+    var menuItemDelete = goog.dom.createDom('li', 'btn-edit', goog.dom.createDom('a', {'href': '#'}, 'Delete'));
+    var menu = goog.dom.createDom('ul', null, menuItemDelete);
+    
     // Create Item
-    var newItem = goog.dom.createDom('li', null, this.contentElement);
+    var newItem = goog.dom.createDom('li', null, this.contentElement, menu);
     
     // Add Item to document
     this.parent.appendChild(newItem);
