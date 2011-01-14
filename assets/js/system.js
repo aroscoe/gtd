@@ -12,7 +12,7 @@ gtd.createItems = function(data, itemContainer){
     var items = [];
     for(var i=0; i<data.length; i++){
         var item = new gtd.Item(data[i], itemContainer);
-        items.push(item)
+        items.push(item);
         item.makeItemDom();
     }
     return items;
