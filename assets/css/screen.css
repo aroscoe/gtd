@@ -70,3 +70,37 @@ section#toolbar a {
     text-decoration: none;
     text-transform: uppercase;
 }
+
+/* Modal Dialog
+---------------------------------------------------------- */
+.modal-dialog {
+    position: absolute;
+    padding: 2px 2px 4px 2px;
+    width: 400px;
+    background: #fff;
+    border: 1px solid #646973;
+    -moz-box-shadow: 0 0 8px #888;
+    -webkit-box-shadow: 0 0 8px #888;
+    -o-box-shadow: 0 0 8px #888;
+    box-shadow: 0 0 8px #888;
+}
+.modal-dialog-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #666;
+}
+.modal-dialog-title {
+    margin-bottom: 10px;
+    padding: 3px 8px;
+    color: #fff;
+    background-color: #646973;
+}
+.modal-dialog-content {
+    margin-bottom: 10px;
+    padding: 0 8px;
+    font-size: 12px;
+}
+.modal-dialog-buttons {
+    padding: 0 8px;
+}

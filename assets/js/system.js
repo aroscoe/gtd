@@ -5,6 +5,7 @@ goog.provide('gtd.createItems');
 
 goog.require('goog.dom');
 goog.require('goog.events');
+goog.require('goog.ui.Dialog');
 
 
 gtd.createItems = function(data, itemContainer){
@@ -45,5 +46,28 @@ gtd.Item.prototype.makeItemDom = function(){
 // Event Handler - Delete item
 gtd.Item.prototype.deleteItem = function(e){
     e.preventDefault();
-    goog.dom.removeNode(this);
+    
+    // Create dialog
+    var dialog = new goog.ui.Dialog();
+    dialog.setContent('<p>Are you sure you want to delete this item?</p>');
+    dialog.setTitle('Warning');
+    dialog.setBackgroundElementOpacity(0.1);
+    dialog.setHasTitleCloseButton(false);
+    
+    // Configure dialog button set
+    var buttonSet = new goog.ui.Dialog.ButtonSet();
+    buttonSet.set('delete', 'Delete item');
+    buttonSet.set('cancel', 'Cancel', true, true);
+    dialog.setButtonSet(buttonSet);
+    
+    // Display dialog
+    dialog.setVisible(true);
+    
+    // Listener - dialog
+    goog.events.listen(dialog, goog.ui.Dialog.EventType.SELECT, function(e) {
+        if (e.key == 'delete') {
+            console.log(this);
+            goog.dom.removeNode(this);
+        }
+    }, false, this);
 };

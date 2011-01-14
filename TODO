@@ -1,7 +1,5 @@
 0.5
 ----
-- delete items
---- delete button should pop "Are you sure?" dialog
 - add items
 --- adds blank item to list with input box
 - edit items
