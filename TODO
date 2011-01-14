@@ -17,10 +17,11 @@
 
 1.5
 ----
-- reorder list by dragging
-- show/restore/empty deleted
+- design
 
 Future
 ----
+- reorder list by dragging
+- show/restore/empty deleted
 - multiple lists
 - multiple users

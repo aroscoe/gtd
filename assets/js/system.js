@@ -33,13 +33,14 @@ gtd.Item.prototype.makeItemDom = function(){
     var menuItemDelete = goog.dom.createDom('li', 'btn-edit', optionDelete);
     var menu = goog.dom.createDom('ul', null, menuItemDelete);
     
-    // Create Item
+    // Create item
     var newItem = goog.dom.createDom('li', null, this.contentElement, menu);
     
     // Add Item to document
     this.parent.appendChild(newItem);
     
     // Listener - Delete item
+    // TODO: Should this send an item node instead of using a handler?
     goog.events.listen(optionDelete, goog.events.EventType.CLICK, this.deleteItem, false, newItem);
 };
 
@@ -66,7 +67,6 @@ gtd.Item.prototype.deleteItem = function(e){
     // Listener - dialog
     goog.events.listen(dialog, goog.ui.Dialog.EventType.SELECT, function(e) {
         if (e.key == 'delete') {
-            console.log(this);
             goog.dom.removeNode(this);
         }
     }, false, this);
