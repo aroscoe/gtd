@@ -34,14 +34,13 @@ gtd.Item.prototype.makeItemDom = function(){
     var menu = goog.dom.createDom('ul', null, menuItemDelete);
     
     // Create item
-    var newItem = goog.dom.createDom('li', null, this.contentElement, menu);
+    this.itemElement = goog.dom.createDom('li', null, this.contentElement, menu);
     
     // Add Item to document
-    this.parent.appendChild(newItem);
+    this.parent.appendChild(this.itemElement);
     
     // Listener - Delete item
-    // TODO: Should this send an item node instead of using a handler?
-    goog.events.listen(optionDelete, goog.events.EventType.CLICK, this.deleteItem, false, newItem);
+    goog.events.listen(optionDelete, goog.events.EventType.CLICK, this.deleteItem, false, this);
 };
 
 // Event Handler - Delete item
@@ -67,7 +66,7 @@ gtd.Item.prototype.deleteItem = function(e){
     // Listener - dialog
     goog.events.listen(dialog, goog.ui.Dialog.EventType.SELECT, function(e) {
         if (e.key == 'delete') {
-            goog.dom.removeNode(this);
+            goog.dom.removeNode(this.itemElement);
         }
     }, false, this);
 };
