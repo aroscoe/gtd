@@ -30,7 +30,7 @@ gtd.Item.prototype.makeItemDom = function(){
     
     // Build menu
     var optionDelete = goog.dom.createDom('a', {'href': '#'}, 'Delete');
-    var menuItemDelete = goog.dom.createDom('li', 'btn-edit', optionDelete);
+    var menuItemDelete = goog.dom.createDom('li', 'btn-delete', optionDelete);
     var menu = goog.dom.createDom('ul', null, menuItemDelete);
     
     // Create item
