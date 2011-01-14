@@ -4,6 +4,7 @@ goog.provide('gtd.Item');
 goog.provide('gtd.createItems');
 
 goog.require('goog.dom');
+goog.require('goog.events');
 
 
 gtd.createItems = function(data, itemContainer){
@@ -27,7 +28,8 @@ gtd.Item.prototype.makeItemDom = function(){
     this.contentElement = goog.dom.createDom('p', null, this.content);
     
     // Build menu
-    var menuItemDelete = goog.dom.createDom('li', 'btn-edit', goog.dom.createDom('a', {'href': '#'}, 'Delete'));
+    var optionDelete = goog.dom.createDom('a', {'href': '#'}, 'Delete');
+    var menuItemDelete = goog.dom.createDom('li', 'btn-edit', optionDelete);
     var menu = goog.dom.createDom('ul', null, menuItemDelete);
     
     // Create Item
@@ -35,4 +37,13 @@ gtd.Item.prototype.makeItemDom = function(){
     
     // Add Item to document
     this.parent.appendChild(newItem);
+    
+    // Listener - Delete item
+    goog.events.listen(optionDelete, goog.events.EventType.CLICK, this.deleteItem, false, newItem);
+};
+
+// Event Handler - Delete item
+gtd.Item.prototype.deleteItem = function(e){
+    e.preventDefault();
+    goog.dom.removeNode(this);
 };
