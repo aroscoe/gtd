@@ -31,6 +31,7 @@ section#things {
 section#things ul#items > li {
     position: relative;
     padding: .5em;
+    min-height: 1em;
     border-bottom: 1px dotted #ccc;
 }
 section#things ul#items > li:last-child {
