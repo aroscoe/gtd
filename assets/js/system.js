@@ -42,6 +42,9 @@ gtd.Item.prototype.makeItemDom = function(){
     
     // Listener - Delete item
     goog.events.listen(optionDelete, goog.events.EventType.CLICK, this.deleteItem, false, this);
+    
+    // Listener - Edit item
+    goog.events.listen(this.contentElement, goog.events.EventType.DBLCLICK, this.editItem, false, this);
 };
 
 // Event Handler - Delete item

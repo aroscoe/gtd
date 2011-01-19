@@ -37,6 +37,13 @@ section#things ul#items > li {
 section#things ul#items > li:last-child {
     border: 0;
 }
+section#things ul#items > li p {
+    padding: .2em .1em;
+}
+section#things ul#items > li p:hover {
+    cursor: text;
+    background-color: #fffaaf;
+}
 section#things ul#items ul {
     position: absolute;
     top: 7px;
