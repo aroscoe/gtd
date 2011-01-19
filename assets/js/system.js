@@ -69,6 +69,8 @@ gtd.Item.prototype.deleteItem = function(e){
         if (e.key == 'delete') {
             goog.dom.removeNode(this.itemElement);
         }
+        // Remove dialog from DOM
+        dialog.disposeInternal();
     }, false, this);
 };
 
