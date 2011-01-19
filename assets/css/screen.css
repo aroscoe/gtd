@@ -52,13 +52,26 @@ section#things ul#items ul li a {
     text-decoration: none;
     text-transform: uppercase;
 }
+section#things ul#items input.edit-item {
+    width: 80%;
+    padding: .2em .1em;
+    font-size: 1em;
+    border: 1px solid #646973;
+}
 section#things ul#items ul li.btn-edit a {
     color: #357db8;
 }
 section#things ul#items ul li.btn-delete a {
     color: red;
 }
-
+section#things ul#items ul li.btn-save a {
+    padding: 2px 4px;
+    color: #fff;
+    background-color: #357db8;
+}
+section#things ul#items ul li.btn-cancel a {
+    color: #5c6872;
+}
 /* Toolbar */
 section#toolbar {
     padding: .5em;
