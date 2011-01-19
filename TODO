@@ -1,6 +1,5 @@
 1.0
 ----
-- create django app
 - create item model
 - REST interface
 --- add item
