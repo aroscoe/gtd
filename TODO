@@ -13,7 +13,7 @@
 
 Future
 ----
-- reorder list by dragging
+- reordering list items (by dragging)
 - show/restore/empty deleted
 - multiple lists
 - multiple users
