@@ -77,7 +77,7 @@
         }, false);
     }
     
-    goog.net.XhrIo.send('/api/list/1/', function(e){
+    goog.net.XhrIo.send('/api/list/'+gtd.settings.listId+'/', function(e){
         var data = e.target.getResponseJson();
         main(data);
     });

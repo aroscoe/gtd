@@ -1,5 +1,6 @@
 /* SYSTEM **************************************************/
 
+goog.provide('gtd.settings');
 goog.provide('gtd.Item');
 goog.provide('gtd.createItems');
 
@@ -9,6 +10,9 @@ goog.require('goog.events');
 goog.require('goog.ui.Dialog');
 goog.require('goog.net.XhrIo');
 
+gtd.settings = {
+    'listId': '1'
+}
 
 gtd.createItems = function(data, itemContainer){
     var items = [];
