@@ -7,6 +7,7 @@ goog.require('goog.dom');
 goog.require('goog.style');
 goog.require('goog.events');
 goog.require('goog.ui.Dialog');
+goog.require('goog.net.XhrIo');
 
 
 gtd.createItems = function(data, itemContainer){
@@ -20,6 +21,7 @@ gtd.createItems = function(data, itemContainer){
 };
 
 gtd.Item = function(data, itemContainer){
+    this.id = data.id;
     this.content = data.content;
     this.date = data.date;
     this.parent = itemContainer;
@@ -69,8 +71,13 @@ gtd.Item.prototype.deleteItem = function(e){
     
     // Listener - dialog
     goog.events.listen(dialog, goog.ui.Dialog.EventType.SELECT, function(e) {
-        if (e.key == 'delete') {
-            goog.dom.removeNode(this.itemElement);
+        if (e.key == 'delete') {            
+            var url = '/api/item/'+this.id+'/?action=delete';
+            goog.net.XhrIo.send(url, function(e){
+                console.log('delete');
+                console.log(this);
+                goog.dom.removeNode(this.itemElement);
+            });
         }
         // Remove dialog from DOM
         dialog.disposeInternal();
