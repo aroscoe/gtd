@@ -61,15 +61,12 @@
 </section>
 
 <script>
-    function main() {
-        var itemData = [
-            {'content': 'Foo', 'date': '11/12/2010'},
-            {'content': 'Bar', 'date': '11/14/2010'},
-            {'content': 'FooBar', 'date': '11/19/2010'}
-        ];
-        
+    goog.require('goog.net.XhrIo');
+</script>
+<script>
+    function main(data) {
         var itemListElement = document.getElementById('items');
-        var items = gtd.createItems(itemData, itemListElement);
+        var items = gtd.createItems(data.items, itemListElement);
         
         // Listener - Add item
         goog.events.listen(goog.dom.getElement('add-item'), goog.events.EventType.CLICK, function(e){
@@ -79,7 +76,12 @@
             item.editItem();
         }, false);
     }
-    main();
+    
+    goog.net.XhrIo.send('/api/list/1/', function(e){
+        var data = e.target.getResponseJson();
+        main(data);
+    });
 </script>
+
 </body>
 </html>

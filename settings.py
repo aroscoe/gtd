@@ -94,4 +94,5 @@ INSTALLED_APPS = (
     
     'south',
     'list',
+    'api',
 )

@@ -9,6 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', direct_to_template, {'template': 'index.html'}, name="home"),
+    url(r'^api/', include('gtd.api.urls'), name="api"),
     
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
