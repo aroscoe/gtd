@@ -71,12 +71,13 @@ gtd.Item.prototype.deleteItem = function(e){
     
     // Listener - dialog
     goog.events.listen(dialog, goog.ui.Dialog.EventType.SELECT, function(e) {
-        if (e.key == 'delete') {            
+        if (e.key == 'delete') {
+            var itemElement = this.itemElement;
             var url = '/api/item/'+this.id+'/?action=delete';
             goog.net.XhrIo.send(url, function(e){
-                console.log('delete');
-                console.log(this);
-                goog.dom.removeNode(this.itemElement);
+                if (e.target.getStatus() == 204) {
+                    goog.dom.removeNode(itemElement);
+                }
             });
         }
         // Remove dialog from DOM
