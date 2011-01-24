@@ -71,9 +71,16 @@
         // Listener - Add item
         goog.events.listen(goog.dom.getElement('add-item'), goog.events.EventType.CLICK, function(e){
             e.preventDefault();
-            // TODO: update date with today's date
-            var item = gtd.createItems([{'content': '', 'date': '11/20/2010'}], itemListElement)[0];
-            item.editItem();
+            
+            goog.net.XhrIo.send('/api/item/', function(e){
+                var status = e.target.getStatus();
+                if (status == 200) {
+                    var data = e.target.getResponseJson();
+                    var item = gtd.createItems([{'id': data.id, 'date': data.date}], itemListElement)[0];
+                    item.editItem();
+                }
+            }, 'POST', 'list_id='+gtd.settings.listId);
+            
         }, false);
     }
     
