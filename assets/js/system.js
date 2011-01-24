@@ -82,7 +82,7 @@ gtd.Item.prototype.deleteItem = function(e){
                 if (e.target.getStatus() == 204) {
                     goog.dom.removeNode(itemElement);
                 }
-            });
+            }, 'POST');
         }
         // Remove dialog from DOM
         dialog.disposeInternal();
@@ -90,8 +90,17 @@ gtd.Item.prototype.deleteItem = function(e){
 };
 
 gtd.Item.prototype.updateItem = function(text){
-    this.content = text;
-    this.contentElement.innerText = this.content;
+    var content = this.content;
+    var contentElement = this.contentElement;
+    var url = '/api/item/'+this.id+'/?action=update';
+    
+    goog.net.XhrIo.send(url, function(e){ 
+        if (e.target.getStatus() == 200) {
+            content = text;
+            contentElement.innerText = content;
+        }
+    }, 'POST', 'content='+text);
+    
 };
 
 gtd.Item.prototype._removeEditItemDOM = function(){

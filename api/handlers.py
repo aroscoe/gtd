@@ -10,23 +10,33 @@ class ListHandler(BaseHandler):
 
 class ItemHandler(BaseHandler):
     model = Item
-    allowed_methods = ('GET', 'POST', 'DELETE',)
+    allowed_methods = ('GET', 'POST', 'PUT', 'DELETE',)
     
-    def read(self, request, id):
-        if request.GET.get('action', 'void') == 'delete':
-            return super(ItemHandler, self).delete(request, id=id)
-        return super(ItemHandler, self).read(request, id=id)
-    
-    def create(self, request):
-        list_id = request.POST.get('list_id', False)
-        if list_id:
-            try:
-                list = List.objects.get(pk=list_id)
-            except List.DoesNotExist:
-                return rc.NOT_FOUND
+    def create(self, request, id=None):
+        if not id:
+            list_id = request.POST.get('list_id', False)
+            if list_id:
+                try:
+                    list = List.objects.get(pk=list_id)
+                except List.DoesNotExist:
+                    return rc.NOT_FOUND
+            else:
+                return rc.BAD_REQUEST
+            
+            new_item = list.items.create()
+            return {'id': new_item.id, 'date': new_item.date}
         else:
-            return rc.BAD_REQUEST
-        
-        new_item = list.items.create()
-        
-        return {'id': new_item.id, 'date': new_item.date}
+            action = request.GET.get('action', 'void')
+            if action == 'update':
+                self.update(request, id)
+            elif action == 'delete':
+                return super(ItemHandler, self).delete(request, id=id)
+    
+    def update(self, request, id):
+        item = Item.objects.get(pk=id)
+        if request.method == 'POST':
+            item.content = request.POST.get('content')
+        else:
+            item.content = request.PUT.get('content')
+        item.save()
+        return item
