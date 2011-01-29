@@ -57,7 +57,7 @@ gtd.Item.prototype.deleteItem = function(e){
     var dialog = new goog.ui.Dialog();
     dialog.setContent('<p>Are you sure you want to delete this item?</p>');
     dialog.setTitle('Warning');
-    dialog.setBackgroundElementOpacity(0.1);
+    dialog.setBackgroundElementOpacity(0.4);
     dialog.setHasTitleCloseButton(false);
     
     // Configure dialog button set

@@ -250,3 +250,62 @@ footer a.btn-trash {
     text-indent: -10000000em;
     background: transparent url("../img/btn_trash.png") no-repeat;
 }
+
+
+/* Modal Dialog
+---------------------------------------------------------- */
+.modal-dialog {
+    position: absolute;
+    top: 108px !important;
+    margin-left: 65px;
+    width: 338px;
+    background: #fff;
+    border: 1px solid #232628;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 0 8px #888;
+    -webkit-box-shadow: 0 0 8px #888;
+    -o-box-shadow: 0 0 8px #888;
+    box-shadow: 0 0 8px #888;
+}
+.modal-dialog-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #666;
+}
+.modal-dialog-title {
+    padding: 7px 10px;
+    color: #fff;
+    background-color: #232628;
+}
+.modal-dialog-content {
+    margin: 10px 0;
+    padding: 0 8px;
+    font-size: 12px;
+}
+.modal-dialog-buttons {
+    margin-bottom: 10px;
+    padding: 0 8px;
+}
+.modal-dialog-buttons button[name="delete"] {
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 0 #912507;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255,255,255,0)), to(rgba(0,0,0,0.2)));
+    background-image: -moz-linear-gradient(0% 100% 90deg, rgba(0,0,0,0.2), rgba(255,255,255,0));
+    background-color: #f1671d;
+    border: 1px solid #a8440f;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+}
+.modal-dialog-buttons button[name="cancel"] {
+    text-align: center;
+    text-decoration: underline;
+    background: none;
+    border: 0;
+}
