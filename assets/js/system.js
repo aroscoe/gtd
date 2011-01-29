@@ -34,14 +34,10 @@ gtd.Item = function(data, itemContainer){
 gtd.Item.prototype.makeItemDom = function(){
     // Create DOM structure
     this.contentElement = goog.dom.createDom('p', null, this.content);
-    
-    // Build menu
-    var optionDelete = goog.dom.createDom('a', {'href': '#'}, 'Delete');
-    var menuItemDelete = goog.dom.createDom('li', 'btn-delete', optionDelete);
-    var menu = goog.dom.createDom('ul', null, menuItemDelete);
-    
-    // Create item
-    this.itemElement = goog.dom.createDom('li', null, this.contentElement, menu);
+    var optionCheckBox = goog.dom.createDom('a', {'href': '#', 'class': 'btn-checkbox'}, 'Check');
+    var optionDelete = goog.dom.createDom('a', {'href': '#', 'class': 'btn-delete'}, 'Delete');
+    var itemWrapper = goog.dom.createDom('div', 'cf wrapper', optionCheckBox, this.contentElement, optionDelete);
+    this.itemElement = goog.dom.createDom('li', null, itemWrapper);
     
     // Add Item to document
     this.parent.appendChild(this.itemElement);
