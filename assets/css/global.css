@@ -46,12 +46,17 @@ table {
     border-spacing: 0;
 }
 
+/* FF 3.6 */
+header, footer, section {
+    display: block;
+}
+
 /* Clearing
 ---------------------------------------------------------- */
 .clear {
     clear: both;
 }
-.clearfix:after {
+.cf:after {
     clear: both;
     content: ".";
     display: block;
@@ -59,6 +64,6 @@ table {
     line-height: 0;
     visibility: hidden;
 }
-* html .clearfix {
+* html .cf {
     height: 1%;
 }
