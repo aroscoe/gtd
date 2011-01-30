@@ -6,6 +6,7 @@
 
 Future
 ----
+- error dialog
 - reordering list items (by dragging)
 - show/restore/empty deleted
 - multiple lists
