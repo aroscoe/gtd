@@ -101,45 +101,36 @@ gtd.Item.prototype.updateItem = function(text){
 
 gtd.Item.prototype._removeEditItemDOM = function(){
     // Remove edit components
-    goog.dom.removeNode(goog.dom.getElementByClass('edit-item', this.itemElement));
-    goog.dom.removeNode(goog.dom.getElementByClass('menu-edit', this.itemElement));
+    goog.dom.removeNode(goog.dom.getElementByClass('txtbox-edit', this.itemElement));
     
     // Return item contents to DOM
     goog.style.showElement(this.contentElement, true);
-    goog.style.showElement(this.contentElement.nextSibling, true);
+    goog.dom.setProperties(this.itemElement, {'class': ''});
 };
 
 // Event Handler - Edit item
 gtd.Item.prototype.editItem = function(){
     goog.style.showElement(this.contentElement, false);
-    goog.style.showElement(this.contentElement.nextSibling, false);
+    goog.dom.setProperties(this.itemElement, {'class': 'editing'});
     
     // Create edit input
-    var editInput = goog.dom.createDom('input', {'type': 'text', 'class': 'edit-item'}, this.content);
+    var editInput = goog.dom.createDom('input', {'type': 'text', 'class': 'txtbox-edit', 'value': this.content});
     goog.dom.insertSiblingBefore(editInput, this.contentElement);
     editInput.focus();
     
-    // Change menu items
-    var optionSave = goog.dom.createDom('a', {'href': '#'}, 'Save');
-    var menuItemSave = goog.dom.createDom('li', {'class': 'btn-save'}, optionSave);
-    var optionCancel = goog.dom.createDom('a', {'href': '#'}, 'Cancel')
-    var menuItemCancel = goog.dom.createDom('li', {'class': 'btn-cancel'}, optionCancel);
-    var editMenu = goog.dom.createDom('ul', {'class': 'menu-edit'}, menuItemSave, menuItemCancel);
-    this.contentElement.parentNode.appendChild(editMenu);
-    
-    // Listener - Cancel
-    goog.events.listen(optionCancel, goog.events.EventType.CLICK, function(e){
-        e.preventDefault();
-        this._removeEditItemDOM();
-    }, false, this);
-    
-    // Listener - Save
-    goog.events.listen(optionSave, goog.events.EventType.CLICK, function(e){
-        e.preventDefault();
+    goog.events.listen(editInput, goog.events.EventType.KEYDOWN, function(e){
         
-        var editInput = goog.dom.getElementByClass('edit-item', this.itemElement);
+        // Save - 'Enter' key
+        if (e.keyCode == 13) {
+            var editInput = goog.dom.getElementByClass('txtbox-edit', this.itemElement);
+            
+            this.updateItem(editInput.value);
+            this._removeEditItemDOM();
+            
+        // Cancel - 'Esc' key
+        } else if (e.keyCode == 27) {
+            this._removeEditItemDOM();
+        }
         
-        this.updateItem(editInput.value);
-        this._removeEditItemDOM();
     }, false, this);
 };
