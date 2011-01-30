@@ -24,6 +24,17 @@ gtd.createItems = function(data, itemContainer){
     return items;
 };
 
+gtd.addItem = function(itemListElement){
+    goog.net.XhrIo.send('/api/item/', function(e){
+        var status = e.target.getStatus();
+        if (status == 200) {
+            var data = e.target.getResponseJson();
+            var item = gtd.createItems([{'id': data.id, 'date': data.date}], itemListElement)[0];
+            item.editItem();
+        }
+    }, 'POST', 'list_id='+gtd.settings.listId);
+};
+
 gtd.Item = function(data, itemContainer){
     this.id = data.id;
     this.content = data.content;
@@ -114,7 +125,8 @@ gtd.Item.prototype.editItem = function(){
     goog.dom.setProperties(this.itemElement, {'class': 'editing'});
     
     // Create edit input
-    var editInput = goog.dom.createDom('input', {'type': 'text', 'class': 'txtbox-edit', 'value': this.content});
+    var content = this.content || '';
+    var editInput = goog.dom.createDom('input', {'type': 'text', 'class': 'txtbox-edit', 'value': content});
     goog.dom.insertSiblingBefore(editInput, this.contentElement);
     editInput.focus();
     

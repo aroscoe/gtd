@@ -109,18 +109,9 @@
         var items = gtd.createItems(data.items, itemListElement);
         
         // Listener - Add item
-        goog.events.listen(goog.dom.getElement('add-item'), goog.events.EventType.CLICK, function(e){
+        goog.events.listen(goog.dom.getElement('btn-add-item'), goog.events.EventType.CLICK, function(e){
             e.preventDefault();
-            
-            goog.net.XhrIo.send('/api/item/', function(e){
-                var status = e.target.getStatus();
-                if (status == 200) {
-                    var data = e.target.getResponseJson();
-                    var item = gtd.createItems([{'id': data.id, 'date': data.date}], itemListElement)[0];
-                    item.editItem();
-                }
-            }, 'POST', 'list_id='+gtd.settings.listId);
-            
+            gtd.addItem(itemListElement);
         }, false);
     }
     
