@@ -100,17 +100,14 @@ gtd.Item.prototype.deleteItem = function(e){
 };
 
 gtd.Item.prototype.updateItem = function(text){
-    var content = this.content;
-    var contentElement = this.contentElement;
+    var item = this;
     var url = '/api/item/'+this.id+'/?action=update';
-    
     goog.net.XhrIo.send(url, function(e){ 
         if (e.target.getStatus() == 200) {
-            content = text;
-            contentElement.innerText = content;
+            item.content = text;
+            item.contentElement.innerText = text;
         }
     }, 'POST', 'content='+text);
-    
 };
 
 gtd.Item.prototype._removeEditItemDOM = function(){
