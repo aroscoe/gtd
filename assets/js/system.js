@@ -99,15 +99,15 @@ gtd.Item.prototype.deleteItem = function(e){
     }, false, this);
 };
 
-gtd.Item.prototype.updateItem = function(text){
+gtd.Item.prototype.updateItem = function(content){
     var item = this;
     var url = '/api/item/'+this.id+'/?action=update';
     goog.net.XhrIo.send(url, function(e){ 
         if (e.target.getStatus() == 200) {
-            item.content = text;
-            item.contentElement.innerText = text;
+            item.content = content;
+            item.contentElement.innerText = content;
         }
-    }, 'POST', 'content='+text);
+    }, 'POST', 'content='+content);
 };
 
 gtd.Item.prototype._removeEditItemDOM = function(){
