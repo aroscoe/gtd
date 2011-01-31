@@ -151,6 +151,7 @@ header p em {
 
 /* List */
 #items ul li {
+    min-height: 3.4em;
     border-bottom: 1px solid #9a9b9c;
 }
 #items ul li:hover {
