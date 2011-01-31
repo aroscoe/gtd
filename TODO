@@ -6,7 +6,8 @@
 
 Future
 ----
-- error dialog
+- global dialog
+--- error dialog (ajax requests, empty add item)
 - reordering list items (by dragging)
 - show/restore/empty deleted
 - multiple lists
