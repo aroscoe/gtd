@@ -23,8 +23,10 @@ class ItemHandler(BaseHandler):
             else:
                 return rc.BAD_REQUEST
             
-            new_item = list.items.create()
-            return {'id': new_item.id, 'date': new_item.date}
+            content = request.POST.get('content', '')
+            
+            new_item = list.items.create(content=content)
+            return {'id': new_item.id, 'date': new_item.date, 'content': new_item.content}
         else:
             action = request.GET.get('action', 'void')
             if action == 'update':

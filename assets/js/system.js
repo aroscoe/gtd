@@ -24,15 +24,18 @@ gtd.createItems = function(data, itemContainer){
     return items;
 };
 
-gtd.addItem = function(itemListElement){
-    goog.net.XhrIo.send('/api/item/', function(e){
-        var status = e.target.getStatus();
-        if (status == 200) {
-            var data = e.target.getResponseJson();
-            var item = gtd.createItems([{'id': data.id, 'date': data.date}], itemListElement)[0];
-            item.editItem();
-        }
-    }, 'POST', 'list_id='+gtd.settings.listId);
+gtd.addItem = function(el, itemListElement){
+    var content = el.value;
+    if (content != '') {
+        goog.net.XhrIo.send('/api/item/', function(e){
+            var status = e.target.getStatus();
+            if (status == 200) {
+                var data = e.target.getResponseJson();
+                var item = gtd.createItems([{'id': data.id, 'date': data.date, 'content': data.content}], itemListElement)[0];
+                el.value = '';
+            }
+        }, 'POST', 'list_id='+gtd.settings.listId+'&content='+content);
+    }
 };
 
 gtd.Item = function(data, itemContainer){

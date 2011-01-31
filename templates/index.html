@@ -105,13 +105,17 @@
 </script>
 <script>
     function main(data) {
+        var newItemInput = document.getElementById('new-item-value');
         var itemListElement = document.getElementById('item-list');
         var items = gtd.createItems(data.items, itemListElement);
         
         // Listener - Add item
         goog.events.listen(goog.dom.getElement('btn-add-item'), goog.events.EventType.CLICK, function(e){
             e.preventDefault();
-            gtd.addItem(itemListElement);
+            gtd.addItem(newItemInput, itemListElement);
+        }, false);
+        goog.events.listen(newItemInput, goog.events.EventType.KEYDOWN, function(e){
+            if (e.keyCode == 13) gtd.addItem(newItemInput, itemListElement);
         }, false);
     }
     
