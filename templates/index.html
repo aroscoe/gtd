@@ -6,6 +6,14 @@
     <!-- Meta Info -->
     <meta charset="UTF-8" />
 
+    <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]--> 
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{MEDIA_URL}}img/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{MEDIA_URL}}img/favicon.ico" />
+
     <!-- Stylesheets -->
     <link rel="icon" type="image/x-icon" href="{{MEDIA_URL}}img/favicon.ico" />
     <link rel="stylesheet" href="{{MEDIA_URL}}css/global.css" />
@@ -17,70 +25,97 @@
 
 </head>
 <body>
-<header>
-    <h1>gtd</h1>
-</header>
-
-<section id="things">
-    <section id="toolbar">
-        <ul>
-            <li><a id="add-item" href="">Add Item</a></li>
-        </ul>
+<div id="document">
+    
+    <header>
+        <h1>gtd</h1>
+        <p>Logged in as<br/><em>aroscoe</em></p>
+    </header>
+    
+    <section id="body">
+        <section id="quick-add">
+            <div class="wrapper">
+                <div class="etch">
+                    <input id="new-item-value" type="text" value="" placeholder="Add notes, todos, etc..." />
+                </div>
+                <div class="etch">
+                    <a id="btn-add-item" href="">Add item</a>
+                </div>
+            </div>
+        </section>
+        <!-- // END QUICK ADD -->
+        
+        <section id="items">
+            <ul id="item-list"></ul>
+            <!-- <ul id="item-list">
+                <li>
+                    <div class="cf wrapper">
+                        <a class="btn-checkbox" href="#">Check</a>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a class="btn-delete" href="#">Delete</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="cf wrapper">
+                        <a class="btn-checkbox" href="#">Check</a>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a class="btn-delete" href="#">Delete</a>
+                    </div>
+                </li>
+                <li class="checked">
+                    <div class="cf wrapper">
+                        <a class="btn-checkbox" href="#">Check</a>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a class="btn-delete" href="#">Delete</a>
+                    </div>
+                </li>
+                <li class="editing">
+                    <div class="cf wrapper">
+                        <a class="btn-checkbox" href="#">Check</a>
+                        <input class="txtbox-edit" type="text" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a class="btn-delete" href="#">Delete</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="cf wrapper">
+                        <a class="btn-checkbox" href="#">Check</a>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a class="btn-delete" href="#">Delete</a>
+                    </div>
+                </li>
+            </ul> -->
+        </section>
+        <!-- // END ITEMS -->
+        
+        <footer>
+            <a class="btn-clear" href="">Clear completed</a>
+            <a class="btn-trash" href="">Trash</a>
+        </footer>
+        <!-- // END FOOTER -->
+        
     </section>
-    <ul id="items"></ul>
-    <!-- <ul id="items">
-        <li>
-            <p>Foo</p>
-            <ul>
-                <li class="btn-edit"><a href="">Edit</a></li>
-                <li class="btn-delete"><a href="">Delete</a></li>
-            </ul>
-        </li>
-        <li>
-            <p>Bar</p>
-            <ul>
-                <li class="btn-edit"><a href="">Edit</a></li>
-                <li class="btn-delete"><a href="">Delete</a></li>
-            </ul>
-        </li>
-        <li>
-            <p>FooBar</p>
-            <ul>
-                <li class="btn-edit"><a href="">Edit</a></li>
-                <li class="btn-delete"><a href="">Delete</a></li>
-            </ul>
-        </li>
-        <li>
-            <input class="edit-item" type="text" value="FooBar" />
-            <ul>
-                <li class="btn-save"><a href="">Save</a></li>
-                <li class="btn-cancel"><a href="">Cancel</a></li>
-            </ul>
-        </li>
-    </ul> -->
-</section>
+    <!-- // END BODY -->
+    
+</div>
+<!-- // END DOCUMENT -->
 
 <script>
     goog.require('goog.net.XhrIo');
 </script>
 <script>
     function main(data) {
-        var itemListElement = document.getElementById('items');
+        var newItemInput = document.getElementById('new-item-value');
+        var itemListElement = document.getElementById('item-list');
         var items = gtd.createItems(data.items, itemListElement);
         
         // Listener - Add item
-        goog.events.listen(goog.dom.getElement('add-item'), goog.events.EventType.CLICK, function(e){
+        goog.events.listen(goog.dom.getElement('btn-add-item'), goog.events.EventType.CLICK, function(e){
             e.preventDefault();
-            
-            goog.net.XhrIo.send('/api/item/', function(e){
-                var status = e.target.getStatus();
-                if (status == 200) {
-                    var data = e.target.getResponseJson();
-                    var item = gtd.createItems([{'id': data.id, 'date': data.date}], itemListElement)[0];
-                    item.editItem();
-                }
-            }, 'POST', 'list_id='+gtd.settings.listId);
-            
+            gtd.addItem(newItemInput, itemListElement);
+        }, false);
+        goog.events.listen(newItemInput, goog.events.EventType.KEYDOWN, function(e){
+            if (e.keyCode == 13) gtd.addItem(newItemInput, itemListElement);
         }, false);
     }
     

@@ -24,6 +24,20 @@ gtd.createItems = function(data, itemContainer){
     return items;
 };
 
+gtd.addItem = function(el, itemListElement){
+    var content = el.value;
+    if (content != '') {
+        goog.net.XhrIo.send('/api/item/', function(e){
+            var status = e.target.getStatus();
+            if (status == 200) {
+                var data = e.target.getResponseJson();
+                var item = gtd.createItems([{'id': data.id, 'date': data.date, 'content': data.content}], itemListElement)[0];
+                el.value = '';
+            }
+        }, 'POST', 'list_id='+gtd.settings.listId+'&content='+content);
+    }
+};
+
 gtd.Item = function(data, itemContainer){
     this.id = data.id;
     this.content = data.content;
@@ -34,14 +48,10 @@ gtd.Item = function(data, itemContainer){
 gtd.Item.prototype.makeItemDom = function(){
     // Create DOM structure
     this.contentElement = goog.dom.createDom('p', null, this.content);
-    
-    // Build menu
-    var optionDelete = goog.dom.createDom('a', {'href': '#'}, 'Delete');
-    var menuItemDelete = goog.dom.createDom('li', 'btn-delete', optionDelete);
-    var menu = goog.dom.createDom('ul', null, menuItemDelete);
-    
-    // Create item
-    this.itemElement = goog.dom.createDom('li', null, this.contentElement, menu);
+    var optionCheckBox = goog.dom.createDom('a', {'href': '#', 'class': 'btn-checkbox'}, 'Check');
+    var optionDelete = goog.dom.createDom('a', {'href': '#', 'class': 'btn-delete'}, 'Delete');
+    var itemWrapper = goog.dom.createDom('div', 'cf wrapper', optionCheckBox, this.contentElement, optionDelete);
+    this.itemElement = goog.dom.createDom('li', null, itemWrapper);
     
     // Add Item to document
     this.parent.appendChild(this.itemElement);
@@ -61,7 +71,7 @@ gtd.Item.prototype.deleteItem = function(e){
     var dialog = new goog.ui.Dialog();
     dialog.setContent('<p>Are you sure you want to delete this item?</p>');
     dialog.setTitle('Warning');
-    dialog.setBackgroundElementOpacity(0.1);
+    dialog.setBackgroundElementOpacity(0.4);
     dialog.setHasTitleCloseButton(false);
     
     // Configure dialog button set
@@ -89,61 +99,50 @@ gtd.Item.prototype.deleteItem = function(e){
     }, false, this);
 };
 
-gtd.Item.prototype.updateItem = function(text){
-    var content = this.content;
-    var contentElement = this.contentElement;
+gtd.Item.prototype.updateItem = function(content){
+    var item = this;
     var url = '/api/item/'+this.id+'/?action=update';
-    
     goog.net.XhrIo.send(url, function(e){ 
         if (e.target.getStatus() == 200) {
-            content = text;
-            contentElement.innerText = content;
+            item.content = content;
+            item.contentElement.innerText = content;
         }
-    }, 'POST', 'content='+text);
-    
+    }, 'POST', 'content='+content);
 };
 
 gtd.Item.prototype._removeEditItemDOM = function(){
     // Remove edit components
-    goog.dom.removeNode(goog.dom.getElementByClass('edit-item', this.itemElement));
-    goog.dom.removeNode(goog.dom.getElementByClass('menu-edit', this.itemElement));
+    goog.dom.removeNode(goog.dom.getElementByClass('txtbox-edit', this.itemElement));
     
     // Return item contents to DOM
     goog.style.showElement(this.contentElement, true);
-    goog.style.showElement(this.contentElement.nextSibling, true);
+    goog.dom.setProperties(this.itemElement, {'class': ''});
 };
 
 // Event Handler - Edit item
 gtd.Item.prototype.editItem = function(){
     goog.style.showElement(this.contentElement, false);
-    goog.style.showElement(this.contentElement.nextSibling, false);
+    goog.dom.setProperties(this.itemElement, {'class': 'editing'});
     
     // Create edit input
-    var editInput = goog.dom.createDom('input', {'type': 'text', 'class': 'edit-item'}, this.content);
+    var content = this.content || '';
+    var editInput = goog.dom.createDom('input', {'type': 'text', 'class': 'txtbox-edit', 'value': content});
     goog.dom.insertSiblingBefore(editInput, this.contentElement);
     editInput.focus();
     
-    // Change menu items
-    var optionSave = goog.dom.createDom('a', {'href': '#'}, 'Save');
-    var menuItemSave = goog.dom.createDom('li', {'class': 'btn-save'}, optionSave);
-    var optionCancel = goog.dom.createDom('a', {'href': '#'}, 'Cancel')
-    var menuItemCancel = goog.dom.createDom('li', {'class': 'btn-cancel'}, optionCancel);
-    var editMenu = goog.dom.createDom('ul', {'class': 'menu-edit'}, menuItemSave, menuItemCancel);
-    this.contentElement.parentNode.appendChild(editMenu);
-    
-    // Listener - Cancel
-    goog.events.listen(optionCancel, goog.events.EventType.CLICK, function(e){
-        e.preventDefault();
-        this._removeEditItemDOM();
-    }, false, this);
-    
-    // Listener - Save
-    goog.events.listen(optionSave, goog.events.EventType.CLICK, function(e){
-        e.preventDefault();
+    goog.events.listen(editInput, goog.events.EventType.KEYDOWN, function(e){
         
-        var editInput = goog.dom.getElementByClass('edit-item', this.itemElement);
+        // Save - 'Enter' key
+        if (e.keyCode == 13) {
+            var editInput = goog.dom.getElementByClass('txtbox-edit', this.itemElement);
+            
+            this.updateItem(editInput.value);
+            this._removeEditItemDOM();
+            
+        // Cancel - 'Esc' key
+        } else if (e.keyCode == 27) {
+            this._removeEditItemDOM();
+        }
         
-        this.updateItem(editInput.value);
-        this._removeEditItemDOM();
     }, false, this);
 };

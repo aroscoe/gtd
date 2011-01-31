@@ -1,105 +1,271 @@
-/* SCREEN **************************************************/ 
+/* SCREEN **************************************************/
 
-body {
-    padding: 20px;
-    background-color: #ececec;
+/* Structure
+---------------------------------------------------------- */
+html, body {
+    height: 100%;
+    background-color: #232628;
 }
+#document {
+    height: 100%;
+    margin: 0 auto;
+    width: 960px;
+    min-width: 960px;
+}
+#body {
+    position: relative;
+    margin-left: 129px; /* -1px because of left border */
+    width: 820px;
+    min-height: 100%;
+    background-color: #fff;
+    border-left: 1px solid #181a1c;
+    border-right: 1px solid #181a1c;
+}
+
 
 /* Typography
 ---------------------------------------------------------- */
-html, body {
-    font-family: 'Lucida Grande';
+@font-face {
+    font-family: 'strydeRegular';
+    src: url('../fonts/stryde-regular-webfont.eot');
+    src: local('☺'), url('../fonts/stryde-regular-webfont.woff') format('woff'), url('../fonts/stryde-regular-webfont.ttf') format('truetype'), url('../fonts/stryde-regular-webfont.svg#webfontC3W9vqVj') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
+
+html { font-size:100.01%; }
+body {
+    font-size: 75%;
+    color: #313131;
+    font-family: "Lucida Grande", Arial, Helvetica, sans-serif;
+}
+
+/* Headings */
+h1,h2,h3,h4,h5,h6 { font-weight: normal; color: #111; }
+h1 { font-size: 3em; line-height: 1; margin-bottom: 0.5em; }
+h2 { font-size: 2em; margin-bottom: 0.75em; }
+h3 { font-size: 1.5em; line-height: 1; margin-bottom: 1em; }
+h4 { font-size: 1.2em; line-height: 1.25; margin-bottom: 1.25em; }
+h5 { font-size: 1em; font-weight: bold; margin-bottom: 1.5em; }
+h6 { font-size: 1em; font-weight: bold; }
+
+/* Text Elements */
+p           { margin: 0 0 1.5em; }
+a:focus,
+a:hover     { color: #d67404; }
+a           { color: #c94c09; text-decoration: none; }
+
 
 /* Header
 ---------------------------------------------------------- */
 header {
-    margin-bottom: 20px;
+    position: fixed;
+    margin: 0 10px;
+    width: 100px;
 }
 header h1 {
-    font-family: Tahoma;
-    font-size: 36px;
-    font-weight: normal;
-    color: #5c6872;
+    margin-top: .25em;
+    font-size: 5em;
+    font-family: 'StRydeRegular';
+    text-align: right;
+    color: #fff;
+    text-shadow: 1px 1px 0 #141617;
+}
+header p {
+    line-height: 1.2;
+    text-align: right;
+    color: #60686e;
+    text-shadow: 1px 1px 0 #141617;
+}
+header p em {
+    font-style: normal;
+    color: #c94c09;
 }
 
-/* Things
+
+/* Quick Add
 ---------------------------------------------------------- */
-section#things {
-    background-color: #fff;
+#quick-add {
+    position: fixed;
+    width: 820px;
+    height: 56px;
+    background: transparent url("../img/quick_add_shadow.png") repeat-x bottom left;
 }
-section#things ul#items > li {
-    position: relative;
-    padding: .5em;
-    min-height: 1em;
-    border-bottom: 1px dotted #ccc;
+#quick-add .wrapper {
+    padding: 0 9px;
+    height: 49px;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e2550a), to(#C94C09));
+    background-image: -moz-linear-gradient(0% 50% 90deg,#C94C09, #E2550A);
+    background-color: #d5500a;
+    border-bottom: 1px solid #a8440f;
 }
-section#things ul#items > li:last-child {
-    border: 0;
+#quick-add input, #quick-add a {
+    font-size: 1.2em;
+    border: 1px solid #a8440f;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
 }
-section#things ul#items > li p {
-    padding: .2em .1em;
+.etch {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 0 1px 1px 1px;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,0,0)), to(rgba(255,255,255,0.25)));
+    background-image: -moz-linear-gradient(0% 50% 90deg, rgba(255,255,255,0.25), rgba(0,0,0,0));
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
 }
-section#things ul#items > li p:hover {
-    cursor: text;
-    background-color: #fffaaf;
+#quick-add .etch:first-child {
+    margin-right: 3px;
 }
-section#things ul#items ul {
-    position: absolute;
-    top: 7px;
-    right: 0;
-    width: 125px;
+#quick-add input[type="text"] {
+    margin: 0; /* Chrome hack */
+    display: block;
+    padding: 7px 10px;
+    width: 670px;
+    -webkit-box-shadow: inset 0 0 3px #999;
+    -moz-box-shadow: inset 0 0 3px #999;
+    -o-box-shadow: inset 0 0 3px #999;
+    box-shadow: inset 0 0 3px #999;
+}
+#quick-add a#btn-add-item {
+    display: inline-block;
+    padding: 8px 0 9px 16px;
+    width: 80px;
     text-align: center;
-/*    background: green;*/
-}
-section#things ul#items ul li {
-    display: inline;
-}
-section#things ul#items ul li a {
-    font-size: .75em;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-section#things ul#items input.edit-item {
-    width: 80%;
-    padding: .2em .1em;
-    font-size: 1em;
-    border: 1px solid #646973;
-}
-section#things ul#items ul li.btn-edit a {
-    color: #357db8;
-}
-section#things ul#items ul li.btn-delete a {
-    color: red;
-}
-section#things ul#items ul li.btn-save a {
-    padding: 2px 4px;
     color: #fff;
-    background-color: #357db8;
+    text-shadow: 1px 1px 0 #912507;
+    background: url("../img/icon_plus.png") no-repeat 8px center, -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255,255,255,0)), to(rgba(0,0,0,0.2)));
+    background-image: -moz-linear-gradient(0% 100% 90deg, rgba(0,0,0,0.2), rgba(255,255,255,0));
+    background-color: #f1671d;
 }
-section#things ul#items ul li.btn-cancel a {
-    color: #5c6872;
+
+/* Items
+---------------------------------------------------------- */
+#items {
+    padding: 50px 0 30px 0;
 }
-/* Toolbar */
-section#toolbar {
-    padding: .5em;
-    background-color: #357db8;
+
+/* List */
+#items ul li {
+    min-height: 3.4em;
+    border-bottom: 1px solid #9a9b9c;
 }
-section#toolbar a {
-    font-size: .75em;
+#items ul li:hover {
+    background-color: #f9eada;
+}
+#items ul li .wrapper {
+    padding: .2em 0;
+}
+
+/* Item */
+#items .btn-checkbox, #items .btn-delete {
+    float: left;
+    overflow: none;
+    margin: 0 10px;
+    text-indent: -10000000em;
+}
+#items .btn-checkbox {
+    margin-top: .85em;
+    margin-right: 8px;
+    width: 14px;
+    height: 14px;
+    background: transparent url("../img/btn_checkbox.png") no-repeat;
+}
+#items .btn-delete {
+    margin-top: .75em;
+    width: 18px;
+    height: 18px;
+    background: transparent url("../img/btn_delete.png") no-repeat;
+}
+#items .btn-delete:hover  { background-position: 0 -18px; }
+#items .btn-delete:active { background-position: 0 -36px; }
+#items p {
+    float: left;
+    margin-bottom: 0;
+    padding: 10px 0 12px 0;
+    width: 750px;
+    font-size: 1.2em;
+}
+/* Item - Checked */
+#items li.checked {
+    color: #a6a6a6;
+    background-color: #dedfdf;
+}
+#items li.checked .btn-checkbox { background-position: 0 -14px; }
+
+/* Item - Edit */
+#items ul li.editing .wrapper {
+    padding: .475em 0;
+}
+#items ul li.editing .btn-checkbox {
+    margin-top: .65em;
+}
+#items ul li.editing .btn-delete {
+    margin-top: .65em;
+}
+#items .txtbox-edit {
+    float: left;
+    width: 728px;
+    padding: 3px 10px 4px 10px;
+    font-size: 1.2em;
+    border: 1px solid #b7b7b7;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 0 3px #b7b7b7;
+    -moz-box-shadow: inset 0 0 3px #b7b7b7;
+    -o-box-shadow: inset 0 0 3px #b7b7b7;
+    box-shadow: inset 0 0 3px #b7b7b7;
+}
+
+
+/* Footer
+---------------------------------------------------------- */
+footer {
+    position: fixed;
+    bottom: 0;
+    padding: 0 8px 0 10px;
+    width: 802px;
+    height: 30px;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,0,0)), to(rgba(43,46,49,1)));
+    background-color: #1a1d1e;
+    border-top: 1px solid #181a1c;
+}
+footer a.btn-clear {
+    float: left;
+    margin-top: .6em;
     color: #fff;
-    text-decoration: none;
-    text-transform: uppercase;
+    text-shadow: 1px 1px 0 #070808;
 }
+footer a.btn-trash {
+    float: right;
+    margin-top: 4px;
+    width: 20px;
+    height: 21px;
+    overflow: none; 
+    text-indent: -10000000em;
+    background: transparent url("../img/btn_trash.png") no-repeat;
+}
+
 
 /* Modal Dialog
 ---------------------------------------------------------- */
 .modal-dialog {
     position: absolute;
-    padding: 2px 2px 4px 2px;
-    width: 400px;
+    top: 108px !important;
+    margin-left: 65px;
+    width: 338px;
     background: #fff;
-    border: 1px solid #646973;
+    border: 1px solid #232628;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
     -moz-box-shadow: 0 0 8px #888;
     -webkit-box-shadow: 0 0 8px #888;
     -o-box-shadow: 0 0 8px #888;
@@ -112,16 +278,35 @@ section#toolbar a {
     background: #666;
 }
 .modal-dialog-title {
-    margin-bottom: 10px;
-    padding: 3px 8px;
+    padding: 7px 10px;
     color: #fff;
-    background-color: #646973;
+    background-color: #232628;
 }
 .modal-dialog-content {
-    margin-bottom: 10px;
+    margin: 10px 0;
     padding: 0 8px;
     font-size: 12px;
 }
 .modal-dialog-buttons {
+    margin-bottom: 10px;
     padding: 0 8px;
+}
+.modal-dialog-buttons button[name="delete"] {
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 0 #912507;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255,255,255,0)), to(rgba(0,0,0,0.2)));
+    background-image: -moz-linear-gradient(0% 100% 90deg, rgba(0,0,0,0.2), rgba(255,255,255,0));
+    background-color: #f1671d;
+    border: 1px solid #a8440f;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+}
+.modal-dialog-buttons button[name="cancel"] {
+    text-align: center;
+    text-decoration: underline;
+    background: none;
+    border: 0;
 }
