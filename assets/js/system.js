@@ -61,6 +61,9 @@ gtd.Item.prototype.makeItemDom = function(){
     
     // Listener - Edit item
     goog.events.listen(this.contentElement, goog.events.EventType.DBLCLICK, this.editItem, false, this);
+    
+    // Listener - Check/Uncheck item
+    goog.events.listen(optionCheckBox, goog.events.EventType.CLICK, this.checkUncheckItem, false, this);
 };
 
 // Event Handler - Delete item
@@ -145,4 +148,9 @@ gtd.Item.prototype.editItem = function(){
         }
         
     }, false, this);
+};
+
+// Event Handler - Check/Uncheck item
+gtd.Item.prototype.checkUncheckItem = function(){
+    goog.dom.classes.toggle(this.itemElement, 'checked');
 };
