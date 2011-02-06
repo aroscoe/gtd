@@ -1,26 +1,27 @@
 # encoding: utf-8
 import datetime
 from south.db import db
-from south.v2 import DataMigration
+from south.v2 import SchemaMigration
 from django.db import models
 
-class Migration(DataMigration):
+class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        import os.path
-        from django.conf import settings
-        from django.core.management import call_command
-        fixture = os.path.join(settings.PROJECT_ROOT, 'list/fixtures/test_list.json')
-        call_command("loaddata", fixture)
+        
+        # Adding field 'Item.checked'
+        db.add_column('list_item', 'checked', self.gf('django.db.models.fields.BooleanField')(default=False), keep_default=False)
 
 
     def backwards(self, orm):
-        "Write your backwards methods here."
+        
+        # Deleting field 'Item.checked'
+        db.delete_column('list_item', 'checked')
 
 
     models = {
         'list.item': {
             'Meta': {'object_name': 'Item'},
+            'checked': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'content': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),

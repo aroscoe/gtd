@@ -16,6 +16,7 @@ class Item(models.Model):
     content = models.TextField(blank=True)
     date = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=1)
+    checked = models.BooleanField(default=0)
     
     def __unicode__(self):
         return self.content[0:25] if (self.content != '') else 'Blank'
